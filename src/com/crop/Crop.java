@@ -13,7 +13,6 @@ public class Crop {
 		int y=1; 
 		
 		
-		CropMasterProblem master=new CropMasterProblem(y);
 			
 	}
 	
