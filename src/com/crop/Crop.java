@@ -6,10 +6,10 @@ import ilog.cplex.IloCplex;
 public class Crop {
 	public static void main(String []args){
 		System.out.println("============start working==============");
-		//³]©w¤W­­»P¤U­­
-		int UB=Integer.MAX_VALUE;   //¤W­­
-		int LB=Integer.MIN_VALUE;  // ¤U­­ 
-		//ªì©l¤Æ±¡¹Ò
+		//è¨­å®šä¸Šé™èˆ‡ä¸‹é™
+		int UB=Integer.MAX_VALUE;   //ä¸Šé™
+		int LB=Integer.MIN_VALUE;  // ä¸‹é™ 
+		//åˆå§‹åŒ–æƒ…å¢ƒ
 		int y=1; 
 		
 		

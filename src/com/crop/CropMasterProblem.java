@@ -3,6 +3,9 @@ package com.crop;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ilog.concert.IloException;
 import ilog.concert.IloNumExpr;
 import ilog.concert.IloNumVar;
@@ -12,15 +15,15 @@ import ilog.cplex.IloCplex;
 public class CropMasterProblem {
 	public IloCplex cplex;
 	private IloObjective profit;
-	//±¡¹ÒÅÜ¼Æ
-	private List<Integer[][][][]> pricesSenario; // »ù®æ±¡¹Ò 
-	private List<Integer[][][][]> supplySenario; //¨ÑÀ³¶q
-	//¨Mµ¦ÅÜ¼Æ
-	private IloNumVar q[][]; //ºØ­Èj «~ºØ  ¦b²Äk¤éºØ´Ó
-	private IloNumVar v[];  // j «~ºØ±ÄÁÊ¶q
-	private IloNumVar h[][]; // j«~ºØ ¦b²Äk¤é¦¬¦¨
-	//°Ñ¼Æ
-	//¦¨¥»°Ñ¼Æ
+	//æƒ…å¢ƒè®Šæ•¸
+	private List<Integer[][][][]> pricesSenario; // åƒ¹æ ¼æƒ…å¢ƒ 
+	private List<Integer[][][][]> supplySenario; //ä¾›æ‡‰é‡
+	//æ±ºç­–è®Šæ•¸
+	private IloNumVar q[][]; //ç¨®å€¼j å“ç¨®  åœ¨ç¬¬kæ—¥ç¨®æ¤
+	private IloNumVar v[];  // j å“ç¨®æ¡è³¼é‡
+	private IloNumVar h[][]; // jå“ç¨® åœ¨ç¬¬kæ—¥æ”¶æˆ
+	//åƒæ•¸
+	//æˆæœ¬åƒæ•¸
 	private IloNumExpr costTotal,costFix,costBulb,costLabor,costTransportation;
 	public CropMasterProblem(ArrayList<Integer[][][][]> p,ArrayList<Integer[][][][]> s){
 		this.pricesSenario=p;
@@ -32,7 +35,7 @@ public class CropMasterProblem {
 			cplex=new IloCplex();
 			profit=cplex.addMaximize();
 			
-			//¦¨¥»­­¨î¦¡
+			//æˆæœ¬é™åˆ¶å¼
 			
 		}catch(IloException e){
 			System.err.println("Concert exception caught: " + e);

@@ -5,7 +5,7 @@ import ilog.concert.IloObjective;
 import ilog.cplex.IloCplex;
 
 public class ColumnGen {
-	//¥D°ÝÃD
+
 	public class MasterProblem{
 		public IloCplex cplex;
 		private IloObjective total_cost;
