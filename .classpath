@@ -7,5 +7,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/mike/Applications/IBM/ILOG/CPLEX_Studio127/cplex/bin/x86-64_osx"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/mike/Downloads/poi-3.15/poi-3.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
