@@ -24,7 +24,12 @@ public class CropMasterProblem {
 	private IloNumVar q[][]; //種值j 品種  在第k日種植
 	private IloNumVar v[];  // j 品種採購量
 	private IloNumVar h[][]; // j品種 在第k日收成
-	//private IloNumExpr h[][];
+	
+	//return q v h 
+	private int[][] q_return;
+	private int[] v_return;
+	private int[][] h_return;
+	private int objectValue;
 	private IloNumVar eta;
 	//常數
 	//成本常數
@@ -50,7 +55,6 @@ public class CropMasterProblem {
 		this.costTransportation=new int[p.size()]; //每個情境下總運輸成本 初始化
 		this.arrival=arrival; //到達情境
 		this.L=new IloNumExpr[Common.K];
-		//this.h=new IloNumExpr[Common.J][Common.K];
 		this.YA=YA;
 		createModel();
 	}
@@ -86,7 +90,7 @@ public class CropMasterProblem {
 			//人力成本
 			int costLabor=0;
 			for (int i=0;i<Common.K;i++){
-				costLabor=costLabor+3*Common.CostHire;
+				costLabor=costLabor+5*Common.CostHire;
 			}
 			//運輸成本
 			for(int i=0;i<costTransportation.length;i++){
@@ -112,18 +116,18 @@ public class CropMasterProblem {
 			for(int i=0;i<this.pricesSenario.size();i++){
 				int p[][][][]=this.pricesSenario.get(i);
 				int s[][][][]=this.supplySenario.get(i);
-				IloNumExpr tempProfit=cplex.numExpr();
+				int tempProfit=0;
 				for(int m=0;m<Common.M;m++){
 					for(int j=0;j<Common.J;j++){
 						for(int k=0;k<Common.K;k++){
 							for(int a=0;a<Common.A;a++){
-								tempProfit=cplex.sum(tempProfit,(p[m][j][k][a]*s[m][j][k][a]));
+								tempProfit+=p[m][j][k][a]*s[m][j][k][a];
 							}
 						}
 					}
 				}
 				IloNumExpr profit=cplex.numExpr();
-				profit=cplex.diff(tempProfit,costTotal[i]);
+				profit=cplex.diff(tempProfit, costTotal[i]);
 				cplex.addLe(eta,profit);
 			}
 			//種子限制式
@@ -150,16 +154,16 @@ public class CropMasterProblem {
 			//人力限制
 			for(int j=0;j<Common.J;j++){
 				for(int k=0;k<Common.K;k++){
-					cplex.addLe(q[j][k],20*Common.B);
+					cplex.addLe(q[j][k],200*Common.B);
 				}
 			}
 			//收割限制式
 			for(int j=0;j<Common.J;j++){
 				for(int k=0;k<Common.K;k++){
 					IloLinearNumExpr hexpr=cplex.linearNumExpr();
-					hexpr.addTerm(q[j][k], Common.Y[j]);
+					hexpr.addTerm(Common.Y[j],q[j][k]);
 					if((Common.d[j]+k)<365)
-						cplex.addEq(h[j][k],hexpr);
+						cplex.addEq( h[j][k+Common.d[j]],hexpr);
 					
 				}
 			}
@@ -190,74 +194,76 @@ public class CropMasterProblem {
 								sumSupply+=s[m][j][k][a];
 							}
 							IloNumExpr expr=cplex.numExpr();
-							expr=cplex.prod(YA[j][a],h[j][k]);
+							expr=cplex.prod(YA[j][a]*0.2, h[j][k]);
 							cplex.addLe(sumSupply,expr);
+							
 						}
 					}
 				}
 			}
-			//cplex.exportModel("a.pl");
+			//cplex.exportModel("a.lp");
+			
 			if(cplex.solve()){
-				//cplex.exportModel("ap.lp"); 
+				//cplex.exportModel("a.lp"); 
 				int ee=(int) cplex.getValue(eta);
-				System.out.println("eta = " + ee);
+//				System.out.println("eta = " + ee);
 				double[] vv=cplex.getValues(v);
+
+				int[] tempV=new int[Common.J];
 				for(int j=0;j<Common.J;j++){
-					if(vv[j]!=0){
-						System.out.println(Common.JSTR[j]+" = "+ vv[j]);
-					}
-					
+					tempV[j]=(int)vv[j];
 				}
-				
 				double[][] qq=new double[Common.J][];
 				for(int j=0;j<Common.J;j++){
 					qq[j]=cplex.getValues(q[j]);
 				}
+				
+				
+//				System.out.println("------------h[j][k]--------------");
+				double[][] hh=new double[Common.J][];
+				for(int j=0;j<Common.J;j++){
+					hh[j]=cplex.getValues(h[j]);
+				}
+				
+				int[][] tmepHavest=new int[Common.J][Common.K];
+				int[][] tmepQuan=new int[Common.J][Common.K];
 				for(int j=0;j<Common.J;j++){
 					for(int k=0;k<Common.K;k++){
-						if(qq[j][k]!=0)
-							System.out.print(Common.JSTR[j]+" - " +k+" = "+ qq[j][k]+ "\t");
+						tmepHavest[j][k]=(int)hh[j][k];
+						tmepQuan[j][k]=(int)qq[j][k];
 					}
-					System.out.print("\n");
 				}
+				
+				this.q_return=tmepQuan;
+				this.v_return=tempV;
+				this.h_return=tmepHavest;
+				objectValue=ee;
+//				for(int j=0;j<Common.J;j++){
+//					for(int k=0;k<Common.K;k++){
+//						if(hh[j][k]!=0)
+//							System.out.print(Common.JSTR[j]+" - " +k+" = "+ hh[j][k]+ "\t");
+//					}
+//					System.out.print("\n");
+//				}
 			}
+			cplex.end();
 		}catch(IloException e){
+			System.err.println(e.getMessage());
 			System.err.println("Concert exception caught: " + e);
 		}
 	}
-//	public static void main(String []args){
-//		int[][][][] p=new int[Common.M][Common.J][Common.K][Common.A];
-//		int[][][][] s=new int[Common.M][Common.J][Common.K][Common.A];
-//		int[][][][] dens=new int[Common.M][Common.J][Common.K][Common.A];
-//		Random ranP = new Random();
-//		Random ranS = new Random();
-//		Random ranD = new Random();
-//		for(int m=0;m<Common.M;m++){
-//			for(int j=0;j<Common.J;j++){
-//				for(int k=0;k<Common.K;k++){
-//					for(int a=0;a<Common.A;a++){
-//						p[m][j][k][a]=ranP.nextInt(100)+200;
-//						s[m][j][k][a]=ranS.nextInt(20)+5;
-//						dens[m][j][k][a]=1;
-//					}
-//				}
-//			}
-//		}
-//		boolean[][] aa=new boolean[Common.J][Common.K];
-//		for(int j=0;j<Common.J;j++){
-//			for(int k=150;k<Common.K;k++){
-//				aa[j][k]=true;
-//			}
-//		}
-//		ArrayList<int[][][][]> ps=new ArrayList<int[][][][]>(); // 價格情境 
-//		ArrayList<int[][][][]> ss=new ArrayList<int[][][][]>(); //供應量
-//		ArrayList<int[][][][]> DT=new ArrayList<int[][][][]>();
-//		ArrayList<boolean[][]> AT=new ArrayList<boolean[][]>(); //到貨日 0 or 1
-//		ps.add(p);
-//		ss.add(s);
-//		DT.add(dens);
-//		AT.add(aa);
-//		CropMasterProblem master=new CropMasterProblem(ps,ss,DT,AT);
-//		
-//	}
+
+	public int[][] getQ(){
+		return q_return;
+	}
+	public int[] getV(){
+		return v_return;
+	}
+	public int[][] getH(){
+		return h_return;
+	}
+	public int getObjectValue() {
+		return objectValue;
+	}
+
 }
