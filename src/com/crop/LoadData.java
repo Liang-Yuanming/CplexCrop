@@ -65,10 +65,12 @@ public class LoadData {
 					HSSFCell pCell = row.getCell((short)9);
 					int pr=(int)pCell.getNumericCellValue();
 					
-					if(scenario[i].getSupply()[m][j][k][a]==0){
+					if(scenario[i].getPrice()[m][j][k][a]==0){
 						scenario[i].setPrice(m,j,k,a,pr);
 					}else{
-						scenario[i].setPrice(m, j, k, a, (pr+scenario[i].getPrice()[m][j][k][a])/2);
+						
+						int prr=(pr+scenario[i].getPrice()[m][j][k][a])/2;
+						scenario[i].setPrice(m, j, k, a, prr);
 					}
 					HSSFCell supplyCell = row.getCell((short)8);
 					HSSFCell boxCell = row.getCell((short)7);
@@ -80,12 +82,13 @@ public class LoadData {
 					}else{
 						scenario[i].setDens(m, j, k,a, (scenario[i].getDens()[m][j][k][a]+avageDens)/2);
 					}
-					scenario[i].setSupply(m, j, k, a, supply);
+					
+					scenario[i].setSupply(m, j, k, a, (scenario[i].getSupply()[m][j][k][a]+supply));
 					
 					YA[j][a]+=supply;
-					for(int kk=30;kk<Common.K;kk++){
-						scenario[i].setArrival(j, kk, true);
-					}
+//					for(int kk=0;kk<Common.K;kk++){
+//						scenario[i].setArrival(j, kk, true);
+//					}
 				}
 				for(int j=0;j<Common.J;j++){
 //					double totalJ=0;
@@ -94,14 +97,23 @@ public class LoadData {
 //					}
 //					for(int a=0;a<Common.A;a++){
 //						YAPe[j][a]=YA[j][a]/totalJ;
+//						if(YA[j][a]==0){
+//							YAPe[j][a]=0;
+//						}else{
+//							YAPe[j][a]=YA[j][a]/totalJ;
+//						}
 //					}
 					for(int a=0;a<Common.A;a++){
-						YAPe[j][a]=0.8;
+						YAPe[j][a]=1;
 					}
 				}
 				scenario[i].setYA(YAPe);
 				
-				
+				for(int j=0;j<Common.J;j++){
+					for(int k=0;k<Common.K;k++){
+						scenario[i].setArrival(j, k, true);
+					}
+				}
 				
 			}
 

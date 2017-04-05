@@ -24,27 +24,18 @@ public class SubProblem {
 	private IloCplex cplex;
 
 	//object
-	private int[] obj;
+	private int obj;
 	private Scenario[] scenario;
-
-	public SubProblem(int[] v,int[][] h,int[][] q,Scenario[] scenario){
+	private int supply[][][][];
+	public SubProblem(int[] v,int[][] h,int[][] q,Scenario[] scenario,int i){
 		this.v=v;
 		this.h=h;
 		this.q=q;
 		this.scenario=scenario;
-		obj=new int[scenario.length];
-		for(int i=0;i<scenario.length;i++){
-			createModel(i);
-		}
-		int max=obj[0];
-		int index_y=0;
-		for(int i=1;i<obj.length;i++){
-			if(max>obj[i]){
-				max=obj[i];
-				index_y=i;
-			}
-		}
-		System.out.println(index_y);
+		obj=0;
+		supply=new int[Common.M][Common.J][Common.K][Common.A];
+		createModel(i);
+		
 	}
 	public void createModel(int sc_y){
 		try {
@@ -69,7 +60,7 @@ public class SubProblem {
 						for(int m=0;m<Common.M;m++){
 							expr.addTerm(1.0, s[m][j][k][a]);
 						}
-						cplex.addLe(expr,Math.floor(h[j][k]/5)*1);
+						cplex.addLe(expr,Math.floor(h[j][k]*0.3*scenario[sc_y].getYA()[j][a]));
 					}
 				}
 			}
@@ -80,7 +71,7 @@ public class SubProblem {
 			}
 			int costLabor=0;
 			for(int k=0;k<Common.K;k++){
-				costLabor+=3*Common.CostHire;
+				costLabor+=5*Common.CostHire;
 			}
 			IloLinearNumExpr costTransportExpr=cplex.linearNumExpr();
 			for(int m=0;m<Common.M;m++){
@@ -119,7 +110,26 @@ public class SubProblem {
 			profit=cplex.diff(temProfit, costTotal);
 			cplex.addMaximize(profit);
 			if(cplex.solve()){
-				obj[sc_y]=(int)cplex.getObjValue();
+				obj=(int)cplex.getObjValue();
+				
+				double[][][][] ss=new double[Common.M][Common.J][Common.K][];
+				for(int m=0;m<Common.M;m++){
+					for(int j=0;j<Common.J;j++){
+						for(int k=0;k<Common.K;k++){
+							ss[m][j][k]=cplex.getValues(s[m][j][k]);
+						}
+					}
+				}
+				for(int m=0;m<Common.M;m++){
+					for(int j=0;j<Common.J;j++){
+						for(int k=0;k<Common.K;k++){
+							for(int a=0;a<Common.A;a++){
+								supply[m][j][k][a]=(int)ss[m][j][k][a];
+							}
+						}
+					}
+				}
+				
 			}
 		
 			cplex.end();
@@ -127,5 +137,11 @@ public class SubProblem {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public int getObjectValue(){
+		return obj;
+	}
+	public int[][][][] getSupply(){
+		return supply;
 	}
 }

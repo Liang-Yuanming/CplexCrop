@@ -47,6 +47,7 @@ public class CropMasterProblem {
 	private IloNumExpr costBulb;
 	private IloNumExpr[] costTotal;
 	
+	private boolean isSolve;
 	public CropMasterProblem(ArrayList<int[][][][]> p,ArrayList<int[][][][]> s,ArrayList<int[][][][]> dens,ArrayList<boolean[][]> arrival,double[][] YA){
 		this.pricesSenario=p;//價格
 		this.supplySenario=s; //供給
@@ -56,6 +57,7 @@ public class CropMasterProblem {
 		this.arrival=arrival; //到達情境
 		this.L=new IloNumExpr[Common.K];
 		this.YA=YA;
+		isSolve=false;
 		createModel();
 	}
 	public void createModel(){
@@ -121,7 +123,8 @@ public class CropMasterProblem {
 					for(int j=0;j<Common.J;j++){
 						for(int k=0;k<Common.K;k++){
 							for(int a=0;a<Common.A;a++){
-								tempProfit+=p[m][j][k][a]*s[m][j][k][a];
+								if(p[m][j][k][a]!=0)
+									tempProfit+=p[m][j][k][a]*s[m][j][k][a];
 							}
 						}
 					}
@@ -154,7 +157,7 @@ public class CropMasterProblem {
 			//人力限制
 			for(int j=0;j<Common.J;j++){
 				for(int k=0;k<Common.K;k++){
-					cplex.addLe(q[j][k],200*Common.B);
+					cplex.addLe(q[j][k],5*Common.B);
 				}
 			}
 			//收割限制式
@@ -193,20 +196,22 @@ public class CropMasterProblem {
 							for(int m=0;m<Common.M;m++){
 								sumSupply+=s[m][j][k][a];
 							}
+							
 							IloNumExpr expr=cplex.numExpr();
-							expr=cplex.prod(YA[j][a]*0.2, h[j][k]);
+							expr=cplex.prod(YA[j][a]*0.5, h[j][k]);
 							cplex.addLe(sumSupply,expr);
 							
 						}
 					}
 				}
 			}
-			//cplex.exportModel("a.lp");
+			//cplex.exportModel("mp.lp");
 			
 			if(cplex.solve()){
 				//cplex.exportModel("a.lp"); 
+				isSolve=true;
 				int ee=(int) cplex.getValue(eta);
-//				System.out.println("eta = " + ee);
+
 				double[] vv=cplex.getValues(v);
 
 				int[] tempV=new int[Common.J];
@@ -218,8 +223,6 @@ public class CropMasterProblem {
 					qq[j]=cplex.getValues(q[j]);
 				}
 				
-				
-//				System.out.println("------------h[j][k]--------------");
 				double[][] hh=new double[Common.J][];
 				for(int j=0;j<Common.J;j++){
 					hh[j]=cplex.getValues(h[j]);
@@ -238,13 +241,6 @@ public class CropMasterProblem {
 				this.v_return=tempV;
 				this.h_return=tmepHavest;
 				objectValue=ee;
-//				for(int j=0;j<Common.J;j++){
-//					for(int k=0;k<Common.K;k++){
-//						if(hh[j][k]!=0)
-//							System.out.print(Common.JSTR[j]+" - " +k+" = "+ hh[j][k]+ "\t");
-//					}
-//					System.out.print("\n");
-//				}
 			}
 			cplex.end();
 		}catch(IloException e){
@@ -265,5 +261,7 @@ public class CropMasterProblem {
 	public int getObjectValue() {
 		return objectValue;
 	}
-
+	public boolean isSolve(){
+		return isSolve;
+	}
 }

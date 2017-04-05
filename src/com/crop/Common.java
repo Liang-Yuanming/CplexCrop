@@ -45,11 +45,11 @@ public class Common {
 	public static int E[]={2,2,2,2,2,2,2,2,2,2}; // 代表第k日雇用多少人
 	public static int CostHire=1200; //每天每人平均成本為1200元
 	public static int CTFA[]={90,90,90,90,90}; //運輸成本
-	public static int CostFix=100000; //固定成本
+	public static int CostFix=400000; //固定成本
 	//到貨日常數
 	public static int MM=10000000;//輔助常數
 	//每人一天平均種植顆數
-	public static int B=1500;
+	public static int B=2000;
 	
 	//熟成期間
 	public static int d[]={85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,
