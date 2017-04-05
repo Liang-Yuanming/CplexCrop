@@ -52,6 +52,7 @@ public class Crop {
 			LB=sub_min;
 			while(true){
 				y++;
+				System.out.println("迭代第" +y +"次");
 				mp=new CropMasterProblem(ps,ss,DT,AT,scenario[index_sub].getYA());
 				UB=mp.getObjectValue();
 				if(mp.isSolve()){
@@ -82,7 +83,7 @@ public class Crop {
 					}
 					
 				}else{
-					System.out.println("迭代第" +y +"次");
+					//System.out.println("迭代第" +y +"次");
 					System.out.println("UB="+UB);
 					System.out.println("LB="+LB);
 					
