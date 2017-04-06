@@ -35,6 +35,7 @@ public class Crop {
 			for(int i=0;i<scenario.length;i++){
 				SubProblem sp=new SubProblem(mp.getV(),mp.getH(),mp.getQ(),scenario,i);
 				sb_value[i]=sp.getObjectValue();
+				System.out.println("Scenario "+ i + " - Sub Problem Objective value= "+sp.getObjectValue());
 			}
 			int sub_min=sb_value[0];
 			int index_sub=0;
@@ -45,23 +46,30 @@ public class Crop {
 				}
 			}
 			SubProblem sp=new SubProblem(mp.getV(),mp.getH(),mp.getQ(),scenario,index_sub);
+			System.out.println("Update LB  Sub Problem Objective value= "+sp.getObjectValue());
 			ps.add(scenario[index_sub].getPrice());
 			ss.add(sp.getSupply());
 			DT.add(scenario[index_sub].getDens());
 			AT.add(scenario[index_sub].getArrival());
 			LB=sub_min;
+			System.out.println("迭代第" +y +"次");
+			System.out.println("UB="+UB);
+			System.out.println("LB="+LB);
 			while(true){
 				y++;
 				System.out.println("迭代第" +y +"次");
+				System.out.println("ps size = " +ps.size());
 				mp=new CropMasterProblem(ps,ss,DT,AT,scenario[index_sub].getYA());
-				UB=mp.getObjectValue();
 				if(mp.isSolve()){
+					System.out.println(" Master Objective value= "+mp.getObjectValue());
+					UB=mp.getObjectValue();
 					if(Math.abs(UB-LB)<GAP){
 						System.out.println("收斂～");
 						break;
 					}else{
 						for(int i=0;i<scenario.length;i++){
 							SubProblem sp_1=new SubProblem(mp.getV(),mp.getH(),mp.getQ(),scenario,i);
+							System.out.println("Scenario "+ i + " -  Sub Problem Objective value= "+sp.getObjectValue());
 							sb_value[i]=sp_1.getObjectValue();
 						}
 						sub_min=sb_value[0];
@@ -75,6 +83,7 @@ public class Crop {
 						if(LB>sub_min){
 							LB=sub_min;
 							sp=new SubProblem(mp.getV(),mp.getH(),mp.getQ(),scenario,index_sub);
+							System.out.println("Update LB Sub Problem Objective value= "+sp.getObjectValue());
 							ps.add(scenario[index_sub].getPrice());
 							ss.add(sp.getSupply());
 							DT.add(scenario[index_sub].getDens());

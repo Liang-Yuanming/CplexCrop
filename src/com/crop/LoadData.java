@@ -17,7 +17,7 @@ public class LoadData {
 	//檔案路徑與名稱
 	public static String FILENAMES[]={"10507-10606.xls","10407-10506.xls","10307-10406.xls","10207-10306.xls","10107-10206.xls",
 			"10007-10106.xls","09907-10006.xls","09807-09906.xls","09707-09806.xls","09607-09706.xls"};
-	public static String FILEPATH="C:\\Users\\Administrator\\Dropbox\\成大資料\\研究\\Agri-data\\";
+	public static String FILEPATH="/home/w87754/Desktop/Agri-data/";
 	public static String BEGINDATE[]={"2016/07/01","2015/07/01","2014/07/01","2013/07/01","2012/07/01","2011/07/01",
 			"2010/07/01","2009/07/01","2008/07/01","2007/07/01"};
 	public static String SHEETNAME="Sheet1";
@@ -96,15 +96,42 @@ public class LoadData {
 //						totalJ+=YA[j][a];
 //					}
 //					for(int a=0;a<Common.A;a++){
-//						YAPe[j][a]=YA[j][a]/totalJ;
+//						//YAPe[j][a]=YA[j][a]/totalJ;
 //						if(YA[j][a]==0){
 //							YAPe[j][a]=0;
 //						}else{
-//							YAPe[j][a]=YA[j][a]/totalJ;
+//							YAPe[j][a]=0.8;
 //						}
 //					}
 					for(int a=0;a<Common.A;a++){
-						YAPe[j][a]=1;
+						switch(a){
+						case 2:
+							YAPe[j][a]=1;
+							break;
+						case 7:
+							YAPe[j][a]=1;
+							break;
+						case 8:
+							YAPe[j][a]=1;
+							break;
+						case 9:
+							YAPe[j][a]=1;
+							break;
+						case 10:
+							YAPe[j][a]=1;
+							break;
+						case 11:
+							YAPe[j][a]=1;
+							break;
+						default:
+							YAPe[j][a]=0;
+						}	
+					}
+					for(int a=0;a<Common.A;a++){
+						//YAPe[j][a]=YA[j][a]/totalJ;
+						if(YA[j][a]!=0){
+							YAPe[j][a]=1;
+						}
 					}
 				}
 				scenario[i].setYA(YAPe);
