@@ -15,11 +15,11 @@ import com.model.Scenario;
 
 public class LoadData {
 	//檔案路徑與名稱
-	public static String FILENAMES[]={"10407-10506.xls","10307-10406.xls","10207-10306.xls","10107-10206.xls",
-			"10007-10106.xls","09907-10006.xls","09807-09906.xls","09707-09806.xls","09607-09706.xls","09507-09606.xls"};
-	public static String FILEPATH="/home/w87754/Desktop/Agri-data/";
-	public static String BEGINDATE[]={"2015/07/01","2014/07/01","2013/07/01","2012/07/01","2011/07/01",
-			"2010/07/01","2009/07/01","2008/07/01","2007/07/01","2006/07/01"};
+	public static String FILENAMES[]={"10507-10606.xls","10407-10506.xls","10307-10406.xls","10207-10306.xls","10107-10206.xls",
+			"10007-10106.xls","09907-10006.xls","09807-09906.xls","09707-09806.xls","09607-09706.xls"};
+	public static String FILEPATH="C:\\Users\\Administrator\\Dropbox\\成大資料\\研究\\Agri-data\\";
+	public static String BEGINDATE[]={"2016/07/01","2015/07/01","2014/07/01","2013/07/01","2012/07/01","2011/07/01",
+			"2010/07/01","2009/07/01","2008/07/01","2007/07/01"};
 	public static String SHEETNAME="Sheet1";
 	//public static String fileToBeRead="/Users/mike/Dropbox/成大資料/研究/Agri-data/10407-10506.xls";
 	
@@ -68,7 +68,6 @@ public class LoadData {
 					if(scenario[i].getPrice()[m][j][k][a]==0){
 						scenario[i].setPrice(m,j,k,a,pr);
 					}else{
-						
 						int prr=(pr+scenario[i].getPrice()[m][j][k][a])/2;
 						scenario[i].setPrice(m, j, k, a, prr);
 					}
@@ -90,6 +89,7 @@ public class LoadData {
 //						scenario[i].setArrival(j, kk, true);
 //					}
 				}
+				//品質比率
 				for(int j=0;j<Common.J;j++){
 //					double totalJ=0;
 //					for(int a=0;a<Common.A;a++){
@@ -108,13 +108,27 @@ public class LoadData {
 					}
 				}
 				scenario[i].setYA(YAPe);
-				
+				//到達日設定
 				for(int j=0;j<Common.J;j++){
 					for(int k=0;k<Common.K;k++){
 						scenario[i].setArrival(j, k, true);
 					}
 				}
-				
+				//箱數
+				for(int m=0;m<Common.M;m++){
+					for(int j=0;j<Common.J;j++){
+						for(int k=0;k<Common.K;k++){
+							for(int a=0;a<Common.A;a++){
+								if(scenario[i].getDens()[m][j][k][a]==0){
+									scenario[i].setDens(m,j,k,a,10);
+								}
+								if(scenario[i].getPrice()[m][j][k][a]==0){
+									scenario[i].setPrice(m, j, k, a, 80);
+								}
+							}
+						}
+					}
+				}
 			}
 
 			System.out.println("---------Finish load data---------");
