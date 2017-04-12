@@ -2,11 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/mike/Applications/IBM/ILOG/CPLEX_Studio127/cplex/lib/cplex.jar">
+	<classpathentry kind="lib" path="/home/w87754/ibm/ILOG/CPLEX_Studio1271/cplex/lib/cplex.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/mike/Applications/IBM/ILOG/CPLEX_Studio127/cplex/bin/x86-64_osx"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/w87754/ibm/ILOG/CPLEX_Studio1271/cplex/bin/x86-64_linux"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/mike/Downloads/poi-3.15/poi-3.15.jar"/>
+	<classpathentry kind="lib" path="/home/w87754/Desktop/poi-3.15/poi-3.15.jar"/>
+	<classpathentry kind="lib" path="/home/w87754/Desktop/poi-3.15/poi-ooxml-3.15.jar"/>
+	<classpathentry kind="lib" path="/home/w87754/Desktop/poi-3.15/lib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="/home/w87754/Desktop/poi-3.15/ooxml-lib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="/home/w87754/Desktop/poi-3.15/poi-ooxml-schemas-3.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,8 +3,8 @@ package com.crop;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -26,9 +26,10 @@ public class LoadData {
 	public Scenario[] scenario;
 	
 	public LoadData(){
-		scenario=new Scenario[FILENAMES.length];
+		scenario=new Scenario[FILENAMES.length];		
 	}
 	public void start(){
+
 		System.out.println("---------Loading data ..... ---------");
 		try {
 			
@@ -106,7 +107,7 @@ public class LoadData {
 					for(int a=0;a<Common.A;a++){
 						switch(a){
 						case 2:
-							YAPe[j][a]=1;
+							YAPe[j][a]=0.8;
 							break;
 						case 7:
 							YAPe[j][a]=1;
@@ -124,13 +125,13 @@ public class LoadData {
 							YAPe[j][a]=1;
 							break;
 						default:
-							YAPe[j][a]=0;
+							YAPe[j][a]=0.5;
 						}	
 					}
 					for(int a=0;a<Common.A;a++){
 						//YAPe[j][a]=YA[j][a]/totalJ;
 						if(YA[j][a]!=0){
-							YAPe[j][a]=1;
+							YAPe[j][a]=0.5;
 						}
 					}
 				}
@@ -141,21 +142,22 @@ public class LoadData {
 						scenario[i].setArrival(j, k, true);
 					}
 				}
+//				Random r=new Random();
 				//箱數
-				for(int m=0;m<Common.M;m++){
-					for(int j=0;j<Common.J;j++){
-						for(int k=0;k<Common.K;k++){
-							for(int a=0;a<Common.A;a++){
-								if(scenario[i].getDens()[m][j][k][a]==0){
-									scenario[i].setDens(m,j,k,a,10);
-								}
-								if(scenario[i].getPrice()[m][j][k][a]==0){
-									scenario[i].setPrice(m, j, k, a, 80);
-								}
-							}
-						}
-					}
-				}
+//				for(int m=0;m<Common.M;m++){
+//					for(int j=0;j<Common.J;j++){
+//						for(int k=0;k<Common.K;k++){
+//							for(int a=0;a<Common.A;a++){
+//								if(scenario[i].getDens()[m][j][k][a]==0){
+//									scenario[i].setDens(m,j,k,a,10);
+//								}
+////								if(scenario[i].getPrice()[m][j][k][a]==0){
+////									scenario[i].setPrice(m, j, k, a, r.nextInt(130)+50);
+////								}
+//							}
+//						}
+//					}
+//				}
 			}
 
 			System.out.println("---------Finish load data---------");

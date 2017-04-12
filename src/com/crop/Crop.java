@@ -18,6 +18,9 @@ public class Crop {
 		LoadData load=new LoadData();
 		load.start();
 		scenario=load.scenario;
+		LoadPrice loadPrice=new LoadPrice(scenario);
+		loadPrice.start();
+		scenario=loadPrice.scenario;
 		
 		ArrayList<int[][][][]> ps=new ArrayList<int[][][][]>(); // 價格情境 
 		ArrayList<int[][][][]> ss=new ArrayList<int[][][][]>(); //供應量
@@ -90,7 +93,8 @@ public class Crop {
 							AT.add(scenario[index_sub].getArrival());
 						}
 					}
-					
+					System.out.println("UB="+UB);
+					System.out.println("LB="+LB);
 				}else{
 					//System.out.println("迭代第" +y +"次");
 					System.out.println("UB="+UB);
