@@ -8,12 +8,14 @@ public class Scenario {
 	private int dens[][][][]; //
 	private boolean arrival[][];
 	private double YA[][];
+	private double YA2[][];
 	public Scenario(){
 		price=new int[Common.M][Common.J][Common.K][Common.A];
 		dens=new int[Common.M][Common.J][Common.K][Common.A];
 		supply=new int[Common.M][Common.J][Common.K][Common.A];
 		arrival=new boolean[Common.J][Common.K];
 		YA=new double[Common.J][Common.A];
+		YA2=new double[Common.J][Common.A];
 	}
 	public int[][][][] getSupply() {
 		return supply;
@@ -58,5 +60,10 @@ public class Scenario {
 	public void setYA(double[][] yA) {
 		YA = yA;
 	}
-	
+	public double[][] getYA2() {
+		return YA2;
+	}
+	public void setYA2(double[][] yA2) {
+		YA2 = yA2;
+	}
 }

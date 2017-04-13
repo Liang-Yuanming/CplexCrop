@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
+//import java.util.Random;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -91,7 +91,7 @@ public class LoadData {
 //					}
 				}
 				//品質比率
-				for(int j=0;j<Common.J;j++){
+//				for(int j=0;j<Common.J;j++){
 //					double totalJ=0;
 //					for(int a=0;a<Common.A;a++){
 //						totalJ+=YA[j][a];
@@ -104,38 +104,38 @@ public class LoadData {
 //							YAPe[j][a]=0.8;
 //						}
 //					}
-					for(int a=0;a<Common.A;a++){
-						switch(a){
-						case 2:
-							YAPe[j][a]=0.8;
-							break;
-						case 7:
-							YAPe[j][a]=1;
-							break;
-						case 8:
-							YAPe[j][a]=1;
-							break;
-						case 9:
-							YAPe[j][a]=1;
-							break;
-						case 10:
-							YAPe[j][a]=1;
-							break;
-						case 11:
-							YAPe[j][a]=1;
-							break;
-						default:
-							YAPe[j][a]=0.5;
-						}	
-					}
-					for(int a=0;a<Common.A;a++){
-						//YAPe[j][a]=YA[j][a]/totalJ;
-						if(YA[j][a]!=0){
-							YAPe[j][a]=0.5;
-						}
-					}
-				}
-				scenario[i].setYA(YAPe);
+//					for(int a=0;a<Common.A;a++){
+//						switch(a){
+//						case 2:
+//							YAPe[j][a]=0.8;
+//							break;
+//						case 7:
+//							YAPe[j][a]=1;
+//							break;
+//						case 8:
+//							YAPe[j][a]=1;
+//							break;
+//						case 9:
+//							YAPe[j][a]=1;
+//							break;
+//						case 10:
+//							YAPe[j][a]=1;
+//							break;
+//						case 11:
+//							YAPe[j][a]=1;
+//							break;
+//						default:
+//							YAPe[j][a]=0.5;
+//						}	
+//					}
+//					for(int a=0;a<Common.A;a++){
+//						//YAPe[j][a]=YA[j][a]/totalJ;
+//						if(YA[j][a]!=0){
+//							YAPe[j][a]=0.7;
+//						}
+//					}
+//				}
+//				scenario[i].setYA(YAPe);
 				//到達日設定
 				for(int j=0;j<Common.J;j++){
 					for(int k=0;k<Common.K;k++){

@@ -39,7 +39,8 @@ public class LoadPrice {
 		public void start(){
 			System.out.println("---------Loading data ..... ---------");
 			try {
-				
+				double YA[][]=new double[Common.J][Common.A];
+				double YAPe[][]=new double[Common.J][Common.A];
 				for(int i=0;i<FILENAMES.length;i++){
 					
 					String fileName=FILEPATH+FILENAMES[i];
@@ -48,6 +49,8 @@ public class LoadPrice {
 					HSSFSheet sheet=workbook.getSheet(SHEETNAME);
 					SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
 					Date beginDate=df.parse(BEGINDATE[i]);
+					
+					double YAPe2[][]=new double[Common.J][Common.A];
 					for(int x=1;x<sheet.getPhysicalNumberOfRows()-1;x++){
 						
 						HSSFRow row = sheet.getRow(x);
@@ -91,10 +94,48 @@ public class LoadPrice {
 						}else{
 							scenario[i].setDens(m, j, k,a, (scenario[i].getDens()[m][j][k][a]+avageDens)/2);
 						}
+						
+						YA[j][a]+=supply;
+						
 					}
+					for(int j=0;j<Common.J;j++){
+						double totalJ=0;
+						for(int a=0;a<Common.A;a++){
+							totalJ+=YA[j][a];
+						}
+						
+						
+						for(int a=0;a<Common.A;a++){
+							if(YA[j][a]==0){
+//								YAPe[j][a]=0.05;
+								YAPe2[j][a]=0.5;
+							}else{
+//								YAPe[j][a]=(YA[j][a]/totalJ);
+								YAPe2[j][a]=0.8;
+							}
+						}
+						
+					}
+					scenario[i].setYA2(YAPe2);
 					
 				}
-
+				for(int j=0;j<Common.J;j++){
+					double totalJ=0;
+					for(int a=0;a<Common.A;a++){
+						totalJ+=YA[j][a];
+					}
+					for(int a=0;a<Common.A;a++){
+						if(YA[j][a]==0){
+							YAPe[j][a]=0;
+						}else{
+							YAPe[j][a]=(YA[j][a]/totalJ);
+						}
+					}
+				}
+				for(int i=0;i<FILENAMES.length;i++){
+//					scenario[i].setYA2(YAPe);
+					scenario[i].setYA(YAPe);
+				}
 				System.out.println("---------Finish load data---------");
 
 			} catch (IOException e) {
