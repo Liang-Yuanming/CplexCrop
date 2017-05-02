@@ -67,7 +67,7 @@ public class Crop {
 						for(int k=0;k<Common.K;k++){
 							for(int a=0;a<Common.A;a++){
 								if(sp.getSupply()[m][j][k][a]!=0){
-									writerS.println(Common.Market[m]+","+Common.JSTR[j]+","+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
+									writerS.println(Common.MARKET[m]+","+Common.JSTR[j]+","+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
 								}
 							}
 						}
@@ -150,7 +150,7 @@ public class Crop {
 									for(int k=0;k<Common.K;k++){
 										for(int a=0;a<Common.A;a++){
 											if(sp.getSupply()[m][j][k][a]!=0){
-												writerS.println(Common.Market[m]+","+Common.JSTR[j]+"-"+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
+												writerS.println(Common.MARKET[m]+","+Common.JSTR[j]+"-"+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
 											}
 										}
 									}
@@ -161,123 +161,6 @@ public class Crop {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
-					
-//						for(int i=0;i<scenario.length;i++){
-//							int sum=0;
-//							
-//							for(int m=0;m<Common.M;m++){
-//								for(int j=0;j<Common.J;j++){
-//									for(int k=0;k<Common.K;k++){
-//										for(int a=0;a<Common.A;a++){
-//											if(supply[m][j][k][a]!=0){
-//												if(scenario[i].getPrice()[m][j][k][a]==0){
-//													
-//													boolean isPrice=false;
-//													for(int kk=0;kk<Common.K;kk++){
-//														if(scenario[i].getPrice()[m][j][kk][a]!=0){
-//															sum+=supply[m][j][k][a]*scenario[i].getPrice()[m][j][kk][a];
-////															System.out.println("true");
-//															isPrice=true;
-//															break;
-//														}
-//													}
-//													if(!isPrice){
-//														System.out.println(i+","+Common.Market[m]+","+Common.JSTR[j]+"-"+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
-//														if(Common.JSTR[j].equals("FS683")){
-//															if(Common.ASTR[a].equals("A1")){
-//																sum+=supply[m][j][k][a]*90;
-//															}else if(Common.ASTR[a].equals("A8")){
-//																sum+=supply[m][j][k][a]*131;
-//															}else if(Common.ASTR[a].equals("A9")){
-//																sum+=supply[m][j][k][a]*159;
-//															}
-//														}else if(Common.JSTR[j].equals("FS689")){
-//															if(Common.ASTR[a].equals("A9")){
-//																sum+=supply[m][j][k][a]*130;
-//															}else if(Common.ASTR[a].equals("A8")){
-//																sum+=supply[m][j][k][a]*130;
-//															}else if(Common.ASTR[a].equals("A0")){
-//																sum+=supply[m][j][k][a]*294;
-//															}else if(Common.ASTR[a].equals("A1")){
-//																sum+=supply[m][j][k][a]*128;
-//															}
-//														}else if(Common.JSTR[j].equals("FS682")){
-//															if(Common.ASTR[a].equals("A7")){
-//																sum+=supply[m][j][k][a]*123;
-//															}else if(Common.ASTR[a].equals("A8")){
-//																sum+=supply[m][j][k][a]*116;
-//															}else if(Common.ASTR[a].equals("A9")){
-//																sum+=supply[m][j][k][a]*108;
-//															}else if(Common.ASTR[a].equals("A6")){
-//																sum+=supply[m][j][k][a]*128;
-//															}else if(Common.ASTR[a].equals("A")){
-//																sum+=supply[m][j][k][a]*128;
-//															}else if(Common.ASTR[a].equals("B6")){
-//																sum+=supply[m][j][k][a]*60;
-//															}else if(Common.ASTR[a].equals("B7")){
-//																sum+=supply[m][j][k][a]*70;
-//															}
-//															
-//														}else if(Common.JSTR[j].equals("FS680")){
-//															if(Common.ASTR[a].equals("A0")){
-//																sum+=supply[m][j][k][a]*125;
-//															}else if(Common.ASTR[a].equals("A9")){
-//																sum+=supply[m][j][k][a]*127;
-//															}else if(Common.ASTR[a].equals("A8")){
-//																sum+=supply[m][j][k][a]*78;
-//															}else if(Common.ASTR[a].equals("A7")){
-//																sum+=supply[m][j][k][a]*91;
-//															}else if(Common.ASTR[a].equals("B7")){
-//																sum+=supply[m][j][k][a]*38;
-//															}else if(Common.ASTR[a].equals("B8")){
-//																sum+=supply[m][j][k][a]*60;
-//															}else if(Common.ASTR[a].equals("B9")){
-//																sum+=supply[m][j][k][a]*70;
-//															}else if(Common.ASTR[a].equals("A6")){
-//																sum+=supply[m][j][k][a]*128;
-//															}else if(Common.ASTR[a].equals("A1")){
-//																sum+=supply[m][j][k][a]*128;
-//															}
-//															
-//														}else{
-//															sum+=supply[m][j][k][a]*250;
-//														}
-//													}
-//												}else{
-//													sum+=supply[m][j][k][a]*scenario[i].getPrice()[m][j][k][a];
-//												}
-//												
-//											}
-//										}
-//									}
-//								}
-//							}
-//							int costBulb=0;
-//							for(int j=0;j<Common.J;j++){
-//								if(mp.getV()[j]!=0){
-//									costBulb+=mp.getV()[j]*Common.c[j];
-//								}
-//							}
-//							int costLabor=0;
-//							costLabor=365*1*1200;
-//							int costTransport=0;
-//							for(int m=0;m<Common.M;m++){
-//								for(int j=0;j<Common.J;j++){
-//									for(int k=0;k<Common.K;k++){
-//										for(int a=0;a<Common.A;a++){
-//											if(scenario[i].getDens()[m][j][k][a]!=0 && supply[m][j][k][a]!=0){
-//												costTransport+=(Math.floor(supply[m][j][k][a]/scenario[i].getDens()[m][j][k][a])*Common.CTFA[m]);
-//											}
-//										}
-//									}
-//								}
-//							}
-//							int costTotal=costBulb+costLabor+Common.CostFix+costTransport;
-//							int profit=sum-costTotal;
-//							System.out.println(i+" = "+sum);
-//							System.out.println(i+" = "+profit);
-//						}
 						
 						break;
 					}else{
@@ -310,7 +193,7 @@ public class Crop {
 										for(int k=0;k<Common.K;k++){
 											for(int a=0;a<Common.A;a++){
 												if(sp.getSupply()[m][j][k][a]!=0){
-													writerS.println(Common.Market[m]+","+Common.JSTR[j]+"-"+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
+													writerS.println(Common.MARKET[m]+","+Common.JSTR[j]+"-"+k+","+Common.ASTR[a]+","+sp.getSupply()[m][j][k][a]);
 												}
 											}
 										}

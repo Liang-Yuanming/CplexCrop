@@ -8,14 +8,14 @@ import java.util.Date;
 //常數宣告
 public class Common {
 	//索引
-	public static int M=5; // 市場編號
-	public static int J=175; //品種編號
-	public static int K=366; //日期
-	public static int A=24; //等級
+	public final static int M=5; // 市場編號
+	public final static int J=175; //品種編號
+	public final static int K=366; //日期
+	public final static int A=24; //等級
 	//市場對應編號
-	public static String Market[]={"台北市場","台中市場","彰化市場","台南市場","高雄市場"};
+	public final static String MARKET[]={"台北市場","台中市場","彰化市場","台南市場","高雄市場"};
 	//品種對應編號
-	public static String JSTR[]={"FH293","FH298","FH364","FH630","FH631","FH633","FH634","FH636","FH661","FK410",
+	public final static String JSTR[]={"FH293","FH298","FH364","FH630","FH631","FH633","FH634","FH636","FH661","FK410",
 			"FK411","FK412","FK413","FK419","FK420","FK422","FK423","FK429","FK433","FK442","FK443","FK449",
 			"FS000","FS002","FS003","FS009","FS010","FS012","FS013","FS019","FS030","FS031","FS032","FS033",
 			"FS039","FS040","FS041","FS042","FS043","FS049","FS060","FS130","FS132","FS133","FS139","FS230",
@@ -49,7 +49,7 @@ public class Common {
 	//到貨日常數
 	public static int MM=10000000;//輔助常數
 	//每人一天平均種植顆數
-	public static int B=2000;
+	public final static int B=2000;
 	
 	//熟成期間
 	public static int d[]={85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,85,
@@ -103,8 +103,8 @@ public class Common {
 		return -1;
 	}
 	public static int searchM(String marketStr){
-		for(int i=0;i<Market.length;i++){
-			if(Market[i].equals(marketStr)){
+		for(int i=0;i<MARKET.length;i++){
+			if(MARKET[i].equals(marketStr)){
 				return i;
 			}
 		}

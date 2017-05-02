@@ -24,11 +24,11 @@ public class LoadPrice {
 	public static String FILENAMES[] = { "10507-10606.xls", "10407-10506.xls", "10307-10406.xls", "10207-10306.xls",
 			"10107-10206.xls", "10007-10106.xls", "09907-10006.xls", "09807-09906.xls", "09707-09806.xls",
 			"09607-09706.xls" };
-	public static String FILENAMES_X[] = { "10507-10606.xlsx", "10407-10506.xlsx", "10307-10406.xlsx",
+	public final static String FILENAMES_X[] = { "10507-10606.xlsx", "10407-10506.xlsx", "10307-10406.xlsx",
 			"10207-10306.xlsx", "10107-10206.xlsx", "10007-10106.xlsx", "09907-10006.xlsx", "09807-09906.xlsx",
 			"09707-09806.xlsx", "09607-09706.xlsx" };
-	public static String FILEPATH = "/home/w87754/Desktop/price/";
-	public static String FILEPATHOTHER = "/home/w87754/Desktop/priceflower/";
+	public static String FILEPATH = "C:\\Users\\mike\\Documents\\Agri-data\\price\\";
+	public static String FILEPATHOTHER = "C:\\Users\\mike\\Documents\\Agri-data\\priceflower\\";
 	public static String BEGINDATE[] = { "2016/07/01", "2015/07/01", "2014/07/01", "2013/07/01", "2012/07/01",
 			"2011/07/01", "2010/07/01", "2009/07/01", "2008/07/01", "2007/07/01" };
 	public static String SHEETNAME = "Sheet1";
@@ -1280,23 +1280,7 @@ public class LoadPrice {
 				scenario[i].setYA2(YAPe2);
 				scenario[i].setYA(YAPe);
 			}
-			// for(int j=0;j<Common.J;j++){
-			// double totalJ=0;
-			// for(int a=0;a<Common.A;a++){
-			// totalJ+=YA[j][a];
-			// }
-			// for(int a=0;a<Common.A;a++){
-			// if(YA[j][a]==0){
-			// YAPe[j][a]=0;
-			// }else{
-			// YAPe[j][a]=(YA[j][a]/totalJ);
-			// }
-			// }
-			// }
-			// for(int i=0;i<FILENAMES.length;i++){
-			//// scenario[i].setYA2(YAPe);
-			// scenario[i].setYA(YAPe);
-			// }
+
 			System.out.println("---------Finish load data---------");
 
 		} catch (IOException e) {
