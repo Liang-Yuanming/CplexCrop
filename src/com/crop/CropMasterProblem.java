@@ -63,6 +63,10 @@ public class CropMasterProblem {
 	public void createModel(){
 		try{
 			cplex=new IloCplex();
+			//cplex.setParam(IloCplex.BooleanParam.PreInd, false);
+		    // force use of the dual simplex algorithm to get a Farkas certificate
+			//cplex.setParam(IloCplex.IntParam.RootAlg, 2);
+		    // suppress subproblem output to reduce clutte
 			//初始化決策變數
 			q=new IloNumVar[Common.J][Common.K];
 			for(int j=0;j<Common.J;j++){
@@ -131,7 +135,7 @@ public class CropMasterProblem {
 				}
 				IloNumExpr profit=cplex.numExpr();
 				profit=cplex.diff(tempProfit, costTotal[i]);
-				cplex.addLe(eta,profit);
+				cplex.addLe(eta,profit,"profit_"+i);
 			}
 			//種子限制式
 			for(int j=0;j<Common.J;j++){
@@ -164,9 +168,29 @@ public class CropMasterProblem {
 			for(int j=0;j<Common.J;j++){
 				for(int k=0;k<Common.K;k++){
 					IloLinearNumExpr hexpr=cplex.linearNumExpr();
+//					if(j==127 && k==180){
+//						hexpr.addTerm(1,q[j][k]);
+//					}else if(j==121 & k==168 ){
+//						hexpr.addTerm(1,q[j][k]);
+//					}else if(j==128 && k==133 ){
+//						hexpr.addTerm(1,q[j][k]);
+//					}else if(j==156 && k==69 ){
+//						hexpr.addTerm(1,q[j][k]);
+//					}else if(j==102 && k==94 ){
+//						hexpr.addTerm(5,q[j][k]);
+//					}else if(j==102 && k==170 ){
+//						hexpr.addTerm(1,q[j][k]);
+//					}else if(j==103 && k==94 ){
+//						hexpr.addTerm(1,q[j][k]);
+//					}else if(j==156 && k==101 ){
+//						hexpr.addTerm(1,q[j][k]);
+//					}
+//					else{
+//						hexpr.addTerm(Common.Y[j],q[j][k]);
+//					}
 					hexpr.addTerm(Common.Y[j],q[j][k]);
 					if((Common.d[j]+k)<365)
-						cplex.addEq( h[j][k+Common.d[j]],hexpr);
+						cplex.addEq( h[j][k+Common.d[j]],hexpr,"Havest_"+Common.JSTR[j]+"_"+k);
 					
 				}
 			}
@@ -196,10 +220,77 @@ public class CropMasterProblem {
 							for(int m=0;m<Common.M;m++){
 								sumSupply+=s[m][j][k][a];
 							}
-							
+							if(sumSupply!=0){
+								if(YA[j][a]==0){
+									System.out.println(Common.JSTR[j]+"-"+Common.ASTR[a]+"="+sumSupply  );
+//									YA[j][a]=1;
+//									switch(Common.JSTR[j]){
+//									case "FS040":
+//										YA[j][7]=0.192;
+//										break;
+//									case "FS350":
+//										YA[j][7]=0.024;
+//										break;
+//									case "FS353":
+//										YA[j][7]=0.005;
+//										break;
+//									case "FS449":
+//										YA[j][8]=0.03;
+//										break;
+//									case "FS591":
+//										YA[j][10]=0.875;
+//										break;
+//									case "FS592":
+//										YA[j][11]=0.302;
+//										break;
+//									case "FS593":
+//										YA[j][11]=0.410;
+//										YA[j][12]=0.017;
+//										break;
+//									case "FS602":
+//										YA[j][20]=0.001;
+//										YA[j][19]=0.006;
+//										break;
+//									case "FS603":
+//										YA[j][21]=0.003;
+//										YA[j][20]=0.003;
+//										break;
+//									case "FS609":
+//										YA[j][9]=0.003;
+//										break;
+//									case "FS630":
+//										YA[j][7]=0.037;
+//										YA[j][22]=0.148;
+//										YA[j][21]=0.148;
+//										break;
+//									case "FS631":
+//										YA[j][21]=0.047;
+//										break;
+//									case "FS632":
+//										YA[j][22]=0.008;
+//										YA[j][21]=0.05;
+//										break;	
+//									case "FS681":
+//										YA[j][7]=0.009;
+//										break;
+//									case "FS683":
+//										YA[j][20]=0.002;
+//										break;
+//									case "FS831":
+//										YA[j][7]=0.17;
+//										break;
+//									}
+								}
+								
+							}
 							IloNumExpr expr=cplex.numExpr();
-							expr=cplex.prod(YA[j][a]*0.5, h[j][k]);
-							cplex.addLe(sumSupply,expr);
+							if(pricesSenario.size()>1){
+								expr=cplex.prod(0.35, cplex.prod(YA[j][a], h[j][k]));
+							}else{
+								expr=cplex.prod(0.26, cplex.prod(YA[j][a], h[j][k]));
+							}
+							
+							cplex.addLe(sumSupply,expr,"SUPPLY_"+Common.JSTR[j]+"_"+k+"_"+Common.ASTR[a]);
 							
 						}
 					}
@@ -231,10 +322,14 @@ public class CropMasterProblem {
 				int[][] tmepHavest=new int[Common.J][Common.K];
 				int[][] tmepQuan=new int[Common.J][Common.K];
 				for(int j=0;j<Common.J;j++){
+					System.out.println("-----"+Common.JSTR[j]+"----------");
 					for(int k=0;k<Common.K;k++){
 						tmepHavest[j][k]=(int)hh[j][k];
 						tmepQuan[j][k]=(int)qq[j][k];
+						if(tmepHavest[j][k]!=0)
+							System.out.print( "第 "+k+" 日 = "+tmepHavest[j][k] +"   ");
 					}
+					System.out.println("");
 				}
 				
 				this.q_return=tmepQuan;

@@ -138,7 +138,7 @@ public class LoadData {
 //				scenario[i].setYA(YAPe);
 				//到達日設定
 				for(int j=0;j<Common.J;j++){
-					for(int k=0;k<Common.K;k++){
+					for(int k=30;k<Common.K;k++){
 						scenario[i].setArrival(j, k, true);
 					}
 				}

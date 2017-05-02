@@ -60,7 +60,18 @@ public class SubProblem {
 						for(int m=0;m<Common.M;m++){
 							expr.addTerm(1.0, s[m][j][k][a]);
 						}
-						cplex.addLe(expr,Math.floor(h[j][k]*0.3*scenario[sc_y].getYA()[j][a]));
+						if(sc_y==9){
+							cplex.addLe(expr,Math.floor(h[j][k]*0.6*scenario[sc_y].getYA()[j][a]));
+						}else{
+							cplex.addLe(expr,Math.floor(h[j][k]*0.4*scenario[sc_y].getYA()[j][a]));
+						}
+						
+//						if(sc_y==9){
+//							cplex.addLe(expr,Math.floor(h[j][k]*0.51*scenario[sc_y].getYA()[j][a]));
+//						}else{
+//							
+//						}
+						
 					}
 				}
 			}
@@ -125,6 +136,9 @@ public class SubProblem {
 						for(int k=0;k<Common.K;k++){
 							for(int a=0;a<Common.A;a++){
 								supply[m][j][k][a]=(int)ss[m][j][k][a];
+								if(supply[m][j][k][a]!=0){
+									System.out.println(Common.Market[m]+"-"+Common.JSTR[j]+"-"+k+"-"+Common.ASTR[a]+"="+supply[m][j][k][a]);
+								}
 							}
 						}
 					}
