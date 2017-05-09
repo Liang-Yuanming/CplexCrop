@@ -1,4 +1,4 @@
-package com.crop;
+package com.crop.v2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,12 +201,7 @@ public class CropMasterProblem {
 								sumSupply+=s[m][j][k][a];
 							}
 							IloNumExpr expr=cplex.numExpr();
-							if(pricesSenario.size()>1){
-								expr=cplex.prod(0.35, cplex.prod(YA[j][a], h[j][k]));
-							}else{
-								expr=cplex.prod(0.26, cplex.prod(YA[j][a], h[j][k]));
-							}
-							
+							expr=cplex.prod(0.3, cplex.prod(YA[j][a], h[j][k]));
 							cplex.addLe(sumSupply,expr,"SUPPLY_"+Common.JSTR[j]+"_"+k+"_"+Common.ASTR[a]);
 							
 						}

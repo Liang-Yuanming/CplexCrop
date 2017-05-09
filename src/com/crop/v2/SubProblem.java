@@ -1,4 +1,4 @@
-package com.crop;
+package com.crop.v2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +60,7 @@ public class SubProblem {
 						for(int m=0;m<Common.M;m++){
 							expr.addTerm(1.0, s[m][j][k][a]);
 						}
-						if(sc_y==9){
-							cplex.addLe(expr,Math.floor(h[j][k]*0.6*scenario[sc_y].getYA()[j][a]));
-						}else{
-							cplex.addLe(expr,Math.floor(h[j][k]*0.4*scenario[sc_y].getYA()[j][a]));
-						}
-						
+						cplex.addLe(expr,Math.floor(h[j][k]*0.3*scenario[sc_y].getYA()[j][a]));
 					}
 				}
 			}
@@ -85,7 +80,6 @@ public class SubProblem {
 						for(int a=0;a<Common.A;a++){
 							if(scenario[sc_y].getDens()[m][j][k][a]!=0){
 								costTransportExpr.addTerm(1.0/scenario[sc_y].getDens()[m][j][k][a]*Common.CTFA[m], s[m][j][k][a]);
-							
 							}
 						}
 					}
@@ -102,7 +96,7 @@ public class SubProblem {
 						for(int a=0;a<Common.A;a++){
 							if(temp[m][j][k][a]!=0){
 								temProfit.addTerm(temp[m][j][k][a], s[m][j][k][a]);
-							}else{
+							}else {
 								temProfit.addTerm(0, s[m][j][k][a]);
 							}
 							
