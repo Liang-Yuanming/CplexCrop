@@ -96,6 +96,8 @@ public class SubProblem {
 						for(int a=0;a<Common.A;a++){
 							if(temp[m][j][k][a]!=0){
 								temProfit.addTerm(temp[m][j][k][a], s[m][j][k][a]);
+							}else if(h[j][k]!=0 && scenario[sc_y].getYA()[j][a]!=0){
+								temProfit.addTerm(90, s[m][j][k][a]);
 							}else {
 								temProfit.addTerm(0, s[m][j][k][a]);
 							}

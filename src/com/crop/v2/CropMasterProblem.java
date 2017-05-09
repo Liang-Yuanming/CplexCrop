@@ -127,8 +127,11 @@ public class CropMasterProblem {
 					for(int j=0;j<Common.J;j++){
 						for(int k=0;k<Common.K;k++){
 							for(int a=0;a<Common.A;a++){
-								if(p[m][j][k][a]!=0)
+								if(p[m][j][k][a]!=0){
 									tempProfit+=p[m][j][k][a]*s[m][j][k][a];
+								}else if(s[m][j][k][a]!=0){
+									tempProfit+=100*s[m][j][k][a];
+								}
 							}
 						}
 					}
@@ -161,7 +164,7 @@ public class CropMasterProblem {
 			//人力限制
 			for(int j=0;j<Common.J;j++){
 				for(int k=0;k<Common.K;k++){
-					cplex.addLe(q[j][k],5*Common.B);
+					cplex.addLe(q[j][k],3*Common.B);
 				}
 			}
 			//收割限制式
@@ -201,7 +204,7 @@ public class CropMasterProblem {
 								sumSupply+=s[m][j][k][a];
 							}
 							IloNumExpr expr=cplex.numExpr();
-							expr=cplex.prod(0.3, cplex.prod(YA[j][a], h[j][k]));
+							expr=cplex.prod(0.2, cplex.prod(YA[j][a], h[j][k]));
 							cplex.addLe(sumSupply,expr,"SUPPLY_"+Common.JSTR[j]+"_"+k+"_"+Common.ASTR[a]);
 							
 						}
