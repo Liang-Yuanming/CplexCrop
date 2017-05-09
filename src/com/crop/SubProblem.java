@@ -27,6 +27,7 @@ public class SubProblem {
 	private int obj;
 	private Scenario[] scenario;
 	private int supply[][][][];
+	private boolean isSolve=false;
 	public SubProblem(int[] v,int[][] h,int[][] q,Scenario[] scenario,int i){
 		this.v=v;
 		this.h=h;
@@ -51,7 +52,15 @@ public class SubProblem {
 					}
 				}
 			}
-			
+			for(int j=0;j<Common.J;j++){
+				double sum=0;
+				for(int a=0;a<Common.A;a++){
+					sum+=scenario[sc_y].getYA()[j][a];
+				}
+				if(sum<0.9){
+					System.out.println(Common.JSTR[j]+"="+sum);
+				}
+			}
 			//供應限制式
 			for(int j=0;j<Common.J;j++){
 				for(int k=0;k<Common.K;k++){
@@ -60,12 +69,14 @@ public class SubProblem {
 						for(int m=0;m<Common.M;m++){
 							expr.addTerm(1.0, s[m][j][k][a]);
 						}
-						if(sc_y==9){
-							cplex.addLe(expr,Math.floor(h[j][k]*0.6*scenario[sc_y].getYA()[j][a]));
-						}else{
-							cplex.addLe(expr,Math.floor(h[j][k]*0.4*scenario[sc_y].getYA()[j][a]));
-						}
-						
+//						if(sc_y==9){
+//							cplex.addLe(expr,Math.floor(h[j][k]*0.3*scenario[sc_y].getYA()[j][a]));
+//						}else if(sc_y==4){
+//							cplex.addLe(expr,Math.floor(h[j][k]*0.25*scenario[sc_y].getYA()[j][a]));
+//						}else{
+//							cplex.addLe(expr,Math.floor(h[j][k]*0.27*scenario[sc_y].getYA()[j][a]));
+//						}
+						cplex.addLe(expr,Math.floor(h[j][k]*0.22*scenario[sc_y].getYA()[j][a]));
 //						if(sc_y==9){
 //							cplex.addLe(expr,Math.floor(h[j][k]*0.51*scenario[sc_y].getYA()[j][a]));
 //						}else{
@@ -109,7 +120,13 @@ public class SubProblem {
 							if(temp[m][j][k][a]!=0){
 								temProfit.addTerm(temp[m][j][k][a], s[m][j][k][a]);
 							}else{
-								temProfit.addTerm(0, s[m][j][k][a]);
+								if(h[j][k]!=0 && scenario[sc_y].getYA()[j][a]!=0){
+									//System.out.println(Common.JSTR[j]+"=price 0");
+									temProfit.addTerm(90, s[m][j][k][a]);
+								}else{
+									temProfit.addTerm(0, s[m][j][k][a]);
+								}
+								
 							}
 							
 						}
@@ -122,7 +139,7 @@ public class SubProblem {
 			cplex.addMaximize(profit);
 			if(cplex.solve()){
 				obj=(int)cplex.getObjValue();
-				
+				isSolve=true;
 				double[][][][] ss=new double[Common.M][Common.J][Common.K][];
 				for(int m=0;m<Common.M;m++){
 					for(int j=0;j<Common.J;j++){
@@ -137,7 +154,7 @@ public class SubProblem {
 							for(int a=0;a<Common.A;a++){
 								supply[m][j][k][a]=(int)ss[m][j][k][a];
 								if(supply[m][j][k][a]!=0){
-									System.out.println(Common.Market[m]+"-"+Common.JSTR[j]+"-"+k+"-"+Common.ASTR[a]+"="+supply[m][j][k][a]);
+									//System.out.println(Common.Market[m]+"-"+Common.JSTR[j]+"-"+k+"-"+Common.ASTR[a]+"="+supply[m][j][k][a]);
 								}
 							}
 						}
@@ -157,5 +174,8 @@ public class SubProblem {
 	}
 	public int[][][][] getSupply(){
 		return supply;
+	}
+	public boolean isSolve(){
+		return isSolve;
 	}
 }

@@ -135,10 +135,22 @@ public class LoadPrice {
 						case "FH364":
 							YAPe[j][18] = 1;
 							break;
+						case "FH630":
+							YAPe[j][6] = 1;
+							break;
 						case "FH631":
 							YAPe[j][9] = 0.3;
 							YAPe[j][6] = 0.3;
 							YAPe[j][5] = 0.4;
+							break;
+						case "FH633":
+							YAPe[j][7] = 0.6;
+							YAPe[j][6] = 0.4;
+							break;
+						case "FH634":
+							YAPe[j][8] = 0.3;
+							YAPe[j][7] = 0.5;
+							YAPe[j][6] = 0.2;
 							break;
 						case "FH636":
 							YAPe[j][7] = 1;
@@ -153,11 +165,33 @@ public class LoadPrice {
 							YAPe[j][9] = 0.050;
 //							YAPe[j][8] = 0.008;
 							break;
+						case "FK410":
+							YAPe[j][0] = 0.2;
+							YAPe[j][8] = 0.4;
+							YAPe[j][7] = 0.4;
+							break;
 						case "FK411":
 							YAPe[j][11] = 0.01;
 							YAPe[j][9] = 0.26;
 							YAPe[j][8] = 0.56;
 							YAPe[j][7] = 0.17;
+							break;
+						case "FK412":
+							YAPe[j][10] = 0.13;
+							YAPe[j][9] = 0.37;
+							YAPe[j][8] = 0.37;
+							YAPe[j][7] = 0.15;
+							break;
+						case "FK413":
+							YAPe[j][11] = 0.1;
+							YAPe[j][10] = 0.21;
+							YAPe[j][9] = 0.53;
+							YAPe[j][8] = 0.16;
+							break;
+						case "FK419":
+							YAPe[j][2] = 0.7;
+							YAPe[j][11] = 0.28;
+							YAPe[j][10] = 0.02;
 							break;
 						case "FK420":
 							YAPe[j][0] = 0.075;
@@ -209,6 +243,16 @@ public class LoadPrice {
 							YAPe[j][2] = 0.93;
 							YAPe[j][22] = 0.07;
 							break;
+						case "FS000":
+							YAPe[j][10] = 1;
+							break;
+						case "FS002":
+							YAPe[j][10] = 1;
+							break;
+						case "FS003":
+							YAPe[j][2] = 0.5;
+							YAPe[j][11] = 0.5;
+							break;
 						case "FS009":
 							YAPe[j][2] = 0.16;
 							YAPe[j][11] = 0.46;
@@ -237,6 +281,35 @@ public class LoadPrice {
 							YAPe[j][2] = 0.748;
 							YAPe[j][11] = 0.215;
 							YAPe[j][10] = 0.037;
+							break;
+						case "FS030":
+							YAPe[j][11] = 0.5;
+							YAPe[j][10] = 0.2;
+							YAPe[j][9] = 0.2;
+							YAPe[j][8] = 0.1;
+							break;
+						case "FS031":
+							YAPe[j][0] = 0.05;
+							YAPe[j][11] = 0.7;
+							YAPe[j][10] = 0.05;
+							YAPe[j][9] = 0.2;
+							break;
+						case "FS032":
+							YAPe[j][0] = 0.01;
+							YAPe[j][2] = 0.56;
+							YAPe[j][11] = 0.24;
+							YAPe[j][10] = 0.13;
+							YAPe[j][9] = 0.07;
+							break;
+						case "FS033":
+							YAPe[j][2] = 0.7;
+							YAPe[j][11] = 0.1;
+							YAPe[j][10] = 0.2;
+							YAPe[j][9] = 0.02;
+							break;
+						case "FS039":
+							YAPe[j][2] = 0.8;
+							YAPe[j][10] = 0.2;
 							break;
 						case "FS040":
 							YAPe[j][11] = 0.038;
@@ -279,6 +352,27 @@ public class LoadPrice {
 							break;
 						case "FS060":
 							YAPe[j][8] = 1;
+							break;
+						case "FS130":
+							YAPe[j][0] = 0.2;
+							YAPe[j][10] = 0.2;
+							YAPe[j][9] = 0.4;
+							YAPe[j][8] = 0.2;
+							break;
+						case "FS132":
+							YAPe[j][10] = 0.6;
+							YAPe[j][9] = 0.3;
+							YAPe[j][8] = 0.3;
+							break;
+						case "FS133":
+							YAPe[j][11] = 0.25;
+							YAPe[j][10] = 0.54;
+							YAPe[j][9] = 0.21;
+							break;
+						case "FS139":
+							YAPe[j][11] = 0.65;
+							YAPe[j][10] = 0.30;
+							YAPe[j][9] = 0.05;
 							break;
 						case "FS230":
 							YAPe[j][11] = 0.25;
@@ -382,9 +476,9 @@ public class LoadPrice {
 							YAPe[j][9] = 0.1;
 							break;
 						case "FS410":
-							YAPe[j][11] = 0.33;
-							YAPe[j][10] = 0.29;
-							YAPe[j][9] = 0.25;
+							YAPe[j][11] = 0.43;
+							YAPe[j][10] = 0.39;
+							YAPe[j][9] = 0.35;
 							YAPe[j][9] = 0.13;
 							break;
 						case "FS411":
@@ -536,10 +630,14 @@ public class LoadPrice {
 							YAPe[j][8] = 0.077;
 							YAPe[j][20] = 0.077;
 							break;
+							
 						case "FS463":
 							YAPe[j][11] = 0.286;
 							YAPe[j][10] = 0.571;
 							YAPe[j][8] = 0.143;
+							break;
+						case "FS469":
+							YAPe[j][2] = 1;
 							break;
 						case "FS539":
 							YAPe[j][9] = 1;

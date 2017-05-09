@@ -39,6 +39,7 @@ public class Crop {
 			UB=mp.getObjectValue();
 			System.out.println(" Master Objective value= "+mp.getObjectValue());
 			int sb_value[]=new int[scenario.length];
+			
 			for(int i=0;i<scenario.length;i++){
 				SubProblem sp=new SubProblem(mp.getV(),mp.getH(),mp.getQ(),scenario,i);
 				sb_value[i]=sp.getObjectValue();
@@ -161,7 +162,8 @@ public class Crop {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
+						Sta sta=new Sta();
+						sta.sta(mp.getV(), sp.getSupply(), scenario);
 					
 //						for(int i=0;i<scenario.length;i++){
 //							int sum=0;

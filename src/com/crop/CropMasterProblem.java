@@ -127,8 +127,9 @@ public class CropMasterProblem {
 					for(int j=0;j<Common.J;j++){
 						for(int k=0;k<Common.K;k++){
 							for(int a=0;a<Common.A;a++){
-								if(p[m][j][k][a]!=0)
+								if(p[m][j][k][a]!=0){
 									tempProfit+=p[m][j][k][a]*s[m][j][k][a];
+								}
 							}
 						}
 					}
@@ -143,7 +144,7 @@ public class CropMasterProblem {
 				for(int k=0;k<Common.K;k++){
 					qexpr.addTerm(1.0, q[j][k]);
 				}
-				cplex.addLe(qexpr, v[j]);
+				cplex.addLe(qexpr, v[j],"V_"+Common.JSTR[j]);
 			}
 			//到貨日限制
 			for(int i=0;i<arrival.size();i++){
@@ -223,63 +224,6 @@ public class CropMasterProblem {
 							if(sumSupply!=0){
 								if(YA[j][a]==0){
 									System.out.println(Common.JSTR[j]+"-"+Common.ASTR[a]+"="+sumSupply  );
-//									YA[j][a]=1;
-//									switch(Common.JSTR[j]){
-//									case "FS040":
-//										YA[j][7]=0.192;
-//										break;
-//									case "FS350":
-//										YA[j][7]=0.024;
-//										break;
-//									case "FS353":
-//										YA[j][7]=0.005;
-//										break;
-//									case "FS449":
-//										YA[j][8]=0.03;
-//										break;
-//									case "FS591":
-//										YA[j][10]=0.875;
-//										break;
-//									case "FS592":
-//										YA[j][11]=0.302;
-//										break;
-//									case "FS593":
-//										YA[j][11]=0.410;
-//										YA[j][12]=0.017;
-//										break;
-//									case "FS602":
-//										YA[j][20]=0.001;
-//										YA[j][19]=0.006;
-//										break;
-//									case "FS603":
-//										YA[j][21]=0.003;
-//										YA[j][20]=0.003;
-//										break;
-//									case "FS609":
-//										YA[j][9]=0.003;
-//										break;
-//									case "FS630":
-//										YA[j][7]=0.037;
-//										YA[j][22]=0.148;
-//										YA[j][21]=0.148;
-//										break;
-//									case "FS631":
-//										YA[j][21]=0.047;
-//										break;
-//									case "FS632":
-//										YA[j][22]=0.008;
-//										YA[j][21]=0.05;
-//										break;	
-//									case "FS681":
-//										YA[j][7]=0.009;
-//										break;
-//									case "FS683":
-//										YA[j][20]=0.002;
-//										break;
-//									case "FS831":
-//										YA[j][7]=0.17;
-//										break;
-//									}
 								}
 								
 							}
@@ -289,7 +233,7 @@ public class CropMasterProblem {
 							}else{
 								expr=cplex.prod(0.26, cplex.prod(YA[j][a], h[j][k]));
 							}
-							
+							//expr=cplex.prod(0.2, cplex.prod(YA[j][a], h[j][k]));
 							cplex.addLe(sumSupply,expr,"SUPPLY_"+Common.JSTR[j]+"_"+k+"_"+Common.ASTR[a]);
 							
 						}
