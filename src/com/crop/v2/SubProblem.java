@@ -60,7 +60,7 @@ public class SubProblem {
 						for(int m=0;m<Common.M;m++){
 							expr.addTerm(1.0, s[m][j][k][a]);
 						}
-						cplex.addLe(expr,Math.floor(h[j][k]*0.3*scenario[sc_y].getYA()[j][a]));
+						cplex.addLe(expr,Math.floor(h[j][k]*0.226*scenario[sc_y].getYA()[j][a]));
 					}
 				}
 			}
@@ -97,7 +97,7 @@ public class SubProblem {
 							if(temp[m][j][k][a]!=0){
 								temProfit.addTerm(temp[m][j][k][a], s[m][j][k][a]);
 							}else if(h[j][k]!=0 && scenario[sc_y].getYA()[j][a]!=0){
-								temProfit.addTerm(90, s[m][j][k][a]);
+								temProfit.addTerm(58, s[m][j][k][a]);
 							}else {
 								temProfit.addTerm(0, s[m][j][k][a]);
 							}

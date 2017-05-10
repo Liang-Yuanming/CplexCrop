@@ -9,7 +9,7 @@ import com.model.Scenario;
 
 public class Crop {
 	public static Scenario[] scenario;
-	public static int GAP=100000;
+	public static int GAP=400000;
 	
 	
 	public static void main(String []args){
@@ -38,7 +38,7 @@ public class Crop {
 		ss.add(scenario[0].getSupply());
 		DT.add(scenario[0].getDens());
 		AT.add(scenario[0].getArrival());
-		CropMasterProblem mp=new CropMasterProblem(ps,ss,DT,AT,scenario[0].getYA());
+		CropMasterProblem mp=new CropMasterProblem(ps,ss,DT,AT,scenario[0].getYA2());
 		if(mp.isSolve()){
 			UB=mp.getObjectValue();
 			System.out.println(" Master Objective value= "+mp.getObjectValue());
@@ -93,7 +93,7 @@ public class Crop {
 				System.out.println("迭代第" +y +"次");
 				System.out.println("ps size = " +ps.size());
 				System.out.println(" ===" +index_sub +"===");
-				mp=new CropMasterProblem(ps,ss,DT,AT,scenario[index_sub].getYA());
+				mp=new CropMasterProblem(ps,ss,DT,AT,scenario[index_sub].getYA2());
 				if(mp.isSolve()){
 					System.out.println(" Master Objective value= "+mp.getObjectValue());
 					UB=mp.getObjectValue();

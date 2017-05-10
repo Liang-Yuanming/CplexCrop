@@ -130,7 +130,7 @@ public class CropMasterProblem {
 								if(p[m][j][k][a]!=0){
 									tempProfit+=p[m][j][k][a]*s[m][j][k][a];
 								}else if(s[m][j][k][a]!=0){
-									tempProfit+=100*s[m][j][k][a];
+									tempProfit+=80*s[m][j][k][a];
 								}
 							}
 						}
@@ -172,7 +172,7 @@ public class CropMasterProblem {
 				for(int k=0;k<Common.K;k++){
 					IloLinearNumExpr hexpr=cplex.linearNumExpr();
 					hexpr.addTerm(Common.Y[j],q[j][k]);
-					if((Common.d[j]+k)<365)
+					if((Common.d[j]+k)<365  && !Common.JSTR[j].equals("FS602") && !Common.JSTR[j].equals("FS603") && !Common.JSTR[j].equals("FS779"))
 						cplex.addEq( h[j][k+Common.d[j]],hexpr,"Havest_"+Common.JSTR[j]+"_"+k);
 					
 				}
@@ -205,6 +205,11 @@ public class CropMasterProblem {
 							}
 							IloNumExpr expr=cplex.numExpr();
 							expr=cplex.prod(0.2, cplex.prod(YA[j][a], h[j][k]));
+//							if(i!=0){
+//								expr=cplex.prod(0.2, cplex.prod(YA[j][a], h[j][k]));
+//							}else{
+//								expr=cplex.prod(0.5, cplex.prod(YA[j][a], h[j][k]));
+//							}
 							cplex.addLe(sumSupply,expr,"SUPPLY_"+Common.JSTR[j]+"_"+k+"_"+Common.ASTR[a]);
 							
 						}

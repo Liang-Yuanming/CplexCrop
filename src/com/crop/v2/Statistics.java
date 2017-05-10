@@ -41,15 +41,15 @@ public class Statistics {
 						if(p[m][j][k][a]!=0)
 							tempProfit+=p[m][j][k][a]*s[m][j][k][a];
 						else if(s[m][j][k][a]!=0)
-							tempProfit+=120*s[m][j][k][a];
+							tempProfit+=58*s[m][j][k][a];
 					}
 				}
 			}
 		}
 		
 		System.out.println(i+" Profit="+(tempProfit-costTotal));
-		System.out.println(i+" income="+(tempProfit));
-		System.out.println(i+" cost="+(costTotal));
+//		System.out.println(i+" income="+(tempProfit));
+//		System.out.println(i+" cost="+(costTotal));
 		
 	}
 }
