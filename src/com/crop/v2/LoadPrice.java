@@ -27,8 +27,8 @@ public class LoadPrice {
 	public final static String FILENAMES_X[] = { "10507-10606.xlsx", "10407-10506.xlsx", "10307-10406.xlsx",
 			"10207-10306.xlsx", "10107-10206.xlsx", "10007-10106.xlsx", "09907-10006.xlsx", "09807-09906.xlsx",
 			"09707-09806.xlsx", "09607-09706.xlsx" };
-	public static String FILEPATH = "/home/w87754/Desktop/price/";
-	public static String FILEPATHOTHER = "/home/w87754/Desktop/priceflower/";
+	public static String FILEPATH = "C:\\Users\\mike\\Documents\\Agri-data\\price\\";
+	public static String FILEPATHOTHER = "C:\\Users\\mike\\Documents\\Agri-data\\priceflower\\";
 	public static String BEGINDATE[] = { "2016/07/01", "2015/07/01", "2014/07/01", "2013/07/01", "2012/07/01",
 			"2011/07/01", "2010/07/01", "2009/07/01", "2008/07/01", "2007/07/01" };
 	public static String SHEETNAME = "Sheet1";

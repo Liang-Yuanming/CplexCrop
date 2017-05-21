@@ -17,7 +17,7 @@ public class LoadData {
 	//檔案路徑與名稱
 	public static String FILENAMES[]={"10507-10606.xls","10407-10506.xls","10307-10406.xls","10207-10306.xls","10107-10206.xls",
 			"10007-10106.xls","09907-10006.xls","09807-09906.xls","09707-09806.xls","09607-09706.xls"};
-	public static String FILEPATH="/home/w87754/Desktop/Agri-data/";
+	public static String FILEPATH="C:\\Users\\mike\\Documents\\Agri-data\\";
 	public static String BEGINDATE[]={"2016/07/01","2015/07/01","2014/07/01","2013/07/01","2012/07/01","2011/07/01",
 			"2010/07/01","2009/07/01","2008/07/01","2007/07/01"};
 	public static String SHEETNAME="Sheet1";
