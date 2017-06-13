@@ -152,12 +152,8 @@ public class CropMasterProblem {
 			for(int i=0;i<arrival.size();i++){
 				boolean [][]tempArrival=this.arrival.get(i);
 				for(int j=0;j<Common.J;j++){
-					for(int k=0;k<Common.K;k++){
-						if(tempArrival[j][k]){
-							cplex.addLe(q[j][k],Common.MM);
-						}else{
-							cplex.addLe(q[j][k],0);
-						}
+					for(int k=60;k<Common.K;k++){
+						cplex.addLe(q[j][k],Common.MM);
 					}
 				}
 			}

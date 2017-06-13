@@ -12,6 +12,7 @@ public class Common {
 	public final static int J=175; //品種編號
 	public final static int K=366; //日期
 	public final static int A=24; //等級
+	
 	//市場對應編號
 	public final static String MARKET[]={"台北市場","台中市場","彰化市場","台南市場","高雄市場"};
 	//品種對應編號
@@ -46,6 +47,7 @@ public class Common {
 	public static int CostHire=1200; //每天每人平均成本為1200元
 	public static int CTFA[]={85,85,85,85,85}; //運輸成本
 	public static int CostFix=400000; //固定成本
+	public static int COSTF[]={3000000,1800000,4600000,1000000,1000000,1000000,1000000,1000000,2000000,4000000};
 	//到貨日常數
 	public static int MM=10000000;//輔助常數
 	//每人一天平均種植顆數
