@@ -74,23 +74,7 @@ public class Common {
 			0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8}; //j品種收成比率
 
 	public static void main(String[] args){
-//		String date1="2008/07/01";
-//		String date2="2009/06/30";
-//		SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
-//		try {
-//			Date beginDate=df.parse(date1);
-//			Date endDate=df.parse(date2);
-//			long betweenDate=((endDate.getTime()-beginDate.getTime())/(1000*60*60*24));
-//			int k=(int)betweenDate;
-//			Calendar cal = Calendar.getInstance();
-//			cal.setTime(beginDate);
-//			int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
-//			
-//			 System.out.println("第"+k+"天");   
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 		System.out.println(Common.JSTR.length);
 		System.out.println(Common.d.length);
 		System.out.println(Common.Y.length);   

@@ -37,9 +37,9 @@ public class RandomForestTest {
 		testquery.close();
 		double minMean=999999.0;
 		int tree=8;
-		PrintWriter writerTree=new PrintWriter("unit_price_6_TREE1.csv","UTF-8");
+		PrintWriter writerTree=new PrintWriter("unit_price_6_TREE2.csv","UTF-8");
 		writerTree.println("#Tree ,MAE,RMSE,Correlation coefficient,timeTook");
-		for(int i=8;i<500;i++){
+		for(int i=8;i<100;i++){
 			 long startTime = Calendar.getInstance().getTimeInMillis();
 			System.out.println("========== Tree " + i +"  =======");
 			RandomForest randomForest = new RandomForest();
@@ -98,7 +98,17 @@ public class RandomForestTest {
 //				+ "TO_CHAR(ADD_MONTHS(\"sales_date\",-1), 'yyyy')=w.\"year\" AND w.\"city\"='臺中' "
 //				+ "LEFT JOIN \"festival\" f ON \"sales_date\"=f.\"festival_date\" "
 //				+ "where  s.\"sales_date\">=TO_DATE('2016/10/01','YYYY/MM/DD')";
-		String sql="select s.\"market\",s.\"variety\",s.\"grade\","
+//		String sql="select s.\"market\",s.\"variety\",s.\"grade\","
+//				+ "s.\"number_of_pieces\",w.\"monthly_average_temperature\",w.\"rainfall\","
+//				+ "w.\"precipitation_days\",w.\"sunshine_hours\","
+//				+ "NVL(f.\"festival_value\",0) AS \"festival_value\",s.\"total_trading_volume\","
+//				+ "s.\"unit_price\" from \"sales\" s LEFT JOIN \"weather\" w "
+//				+ "ON TO_CHAR(ADD_MONTHS(\"sales_date\",-1), 'MM')=w.\"moth\" "
+//				+ "AND TO_CHAR(ADD_MONTHS(\"sales_date\",-1), 'yyyy')=w.\"year\" AND w.\"city\"='臺中' "
+//				+ "LEFT JOIN \"festival\" f ON \"sales_date\"=f.\"festival_date\" "
+//				+ "where s.\"sales_date\">=TO_DATE('2010/07/01','YYYY/MM/DD') AND "
+//				+ "s.\"sales_date\"<=TO_DATE('2016/06/30','YYYY/MM/DD') ORDER BY s.\"sales_date\"";
+		String sql="select s.\"variety\",s.\"grade\","
 				+ "s.\"number_of_pieces\",w.\"monthly_average_temperature\",w.\"rainfall\","
 				+ "w.\"precipitation_days\",w.\"sunshine_hours\","
 				+ "NVL(f.\"festival_value\",0) AS \"festival_value\",s.\"total_trading_volume\","
@@ -107,19 +117,19 @@ public class RandomForestTest {
 				+ "AND TO_CHAR(ADD_MONTHS(\"sales_date\",-1), 'yyyy')=w.\"year\" AND w.\"city\"='臺中' "
 				+ "LEFT JOIN \"festival\" f ON \"sales_date\"=f.\"festival_date\" "
 				+ "where s.\"sales_date\">=TO_DATE('2010/07/01','YYYY/MM/DD') AND "
-				+ "s.\"sales_date\"<=TO_DATE('2016/06/30','YYYY/MM/DD') ORDER BY s.\"sales_date\"";
+				+ "s.\"sales_date\"<=TO_DATE('2016/06/30','YYYY/MM/DD') AND s.\"market\"='台北市場' ORDER BY s.\"sales_date\"";
 		return sql;
 	}
 	public static String makePredictSQL(){
-		String sql="select s.\"market\",s.\"variety\",s.\"grade\",s.\"number_of_pieces\","
+		String sql="select s.\"variety\",s.\"grade\",s.\"number_of_pieces\","
 				+ "w.\"monthly_average_temperature\",w.\"rainfall\",w.\"precipitation_days\","
 				+ "w.\"sunshine_hours\",NVL(f.\"festival_value\",0) AS \"festival_value\","
 				+ "s.\"total_trading_volume\",s.\"unit_price\" from \"sales\" s "
 				+ "LEFT JOIN \"weather\" w ON TO_CHAR(ADD_MONTHS(\"sales_date\",-1), 'MM')=w.\"moth\" "
 				+ "AND TO_CHAR(ADD_MONTHS(\"sales_date\",-1), 'yyyy')=w.\"year\" AND w.\"city\"='臺中' "
 				+ "LEFT JOIN \"festival\" f ON \"sales_date\"=f.\"festival_date\" "
-				+ "where  s.\"sales_date\">=TO_DATE('2016/11/23','YYYY/MM/DD') AND "
-				+ "s.\"sales_date\"<=TO_DATE('2016/11/23','YYYY/MM/DD') ORDER BY s.\"sales_date\"";
+				+ "where  s.\"sales_date\">=TO_DATE('2016/11/28','YYYY/MM/DD') AND "
+				+ "s.\"sales_date\"<=TO_DATE('2016/11/28','YYYY/MM/DD') AND s.\"market\"='台北市場' ORDER BY s.\"sales_date\"";
 		return sql;
 	}
 }

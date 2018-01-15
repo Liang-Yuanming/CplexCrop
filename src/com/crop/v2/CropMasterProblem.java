@@ -63,10 +63,7 @@ public class CropMasterProblem {
 	public void createModel(){
 		try{
 			cplex=new IloCplex();
-			//cplex.setParam(IloCplex.BooleanParam.PreInd, false);
-		    // force use of the dual simplex algorithm to get a Farkas certificate
-			//cplex.setParam(IloCplex.IntParam.RootAlg, 2);
-		    // suppress subproblem output to reduce clutte
+
 			//初始化決策變數
 			q=new IloNumVar[Common.J][Common.K];
 			for(int j=0;j<Common.J;j++){
@@ -201,11 +198,6 @@ public class CropMasterProblem {
 							}
 							IloNumExpr expr=cplex.numExpr();
 							expr=cplex.prod(0.2, cplex.prod(YA[j][a], h[j][k]));
-//							if(i!=0){
-//								expr=cplex.prod(0.2, cplex.prod(YA[j][a], h[j][k]));
-//							}else{
-//								expr=cplex.prod(0.5, cplex.prod(YA[j][a], h[j][k]));
-//							}
 							cplex.addLe(sumSupply,expr,"SUPPLY_"+Common.JSTR[j]+"_"+k+"_"+Common.ASTR[a]);
 							
 						}
